@@ -39,6 +39,9 @@ def delete_alumno(db: Session, alumno_dni: int):
         return db_alumno
     return None
 
+def get_mesas(db: Session):
+    return db.query(MesaExamen).all()
+
 def get_mesa_examen_by_id(db: Session, mesa_id: int):
      return db.query(MesaExamen).filter(MesaExamen.id == mesa_id).first()
 

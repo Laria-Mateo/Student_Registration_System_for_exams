@@ -70,6 +70,10 @@ def delete_alumno(alumno_dni: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Alumno no encontrado")
     return deleted_alumno
 
+@app.get("/api/mesa_examen/", response_model=list[MesaExamenData])
+def get_mesas( db: Session = Depends(get_db)):
+    mesas = crud.get_mesas(db = db)
+    return mesas
 
 @app.get("/api/mesa_examen/{mesa_id}", response_model=MesaExamenData)
 def get_mesa_examen(mesa_id: int, db: Session = Depends(get_db)):
