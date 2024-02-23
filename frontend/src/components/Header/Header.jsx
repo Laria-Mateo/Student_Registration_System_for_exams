@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Box, Flex, Heading, Spacer, Collapse, Button } from '@chakra-ui/react';
 import utn from '/utn-nacional.jpg'
 import { Link } from 'react-router-dom';
+import { handleInscripcionExitosa } from '../../Refresh';
+
 
 
 function Header() {
@@ -36,7 +38,7 @@ function Header() {
           <Link to="/inscripcionFormulario" mr={4} >
             Inscripcion a Mesas
           </Link>
-          <Link href="#" mr={4}>
+          <Link to="/gestionDeAlumnos" mr={4} >
             Gestion de Alumnos
           </Link>
           <Link href="#" mr={4} mb={{ base: 2, md: 0 }}>
@@ -55,9 +57,7 @@ function Header() {
           mt={{ base: 4, md: 0 }}
         >
          <Link to="/inscripcionFormulario">Inscripción a Mesas</Link>
-          <Link href="#" mr={4} mb={{ base: 2, md: 0 }}>
-            Gestion de Alumnos
-          </Link>
+         <Link to="/gestionDeAlumnos" mr={4} >Gestion de Alumnos</Link>
           <Link href="#" mr={4} mb={{ base: 2, md: 0 }}>
             Gestion de Mesas
           </Link>

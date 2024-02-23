@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Input } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import InscripcionFormulario from './components/InscripcionMesas/InscripcionMesas';
+import AlumnoFormulario from './components/GestionDeAlumnos/GestionDeAlumnos';
+
 
 const App = () => {
   const [mesasDeExamenes, setMesasDeExamenes] = useState([]);
@@ -45,7 +47,11 @@ const App = () => {
       .catch(error => console.error('Error fetching mesas:', error))
       .finally(() => setLoading(false));
   }
-
+  
+  function handleRefresh() {
+    fetchAlumnos();
+    fetchMesas()
+  }
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -59,8 +65,15 @@ const App = () => {
             path="/inscripcionFormulario"
             element={<InscripcionFormulario mesasDeExamenes={mesasDeExamenes} alumnosDisponibles={alumnos} />}
           />
+          
+          <Route
+            path="/gestionDeAlumnos"
+            element={<AlumnoFormulario alumnosDisponibles={alumnos} />}
+          />
         </Routes>
+        
       </Router>
+      <Input type="submit" value="Refresh" onClick={handleRefresh} />
     </ChakraProvider>
   );
 }
