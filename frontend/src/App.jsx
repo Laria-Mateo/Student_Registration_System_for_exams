@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import InscripcionFormulario from './components/InscripcionMesas/InscripcionMesas';
 import AlumnoFormulario from './components/GestionDeAlumnos/GestionDeAlumnos';
+import GestionDeMesas from './components/GestionDeMesas/GestionDeMesas';
 
 
 const App = () => {
@@ -47,7 +48,7 @@ const App = () => {
       .catch(error => console.error('Error fetching mesas:', error))
       .finally(() => setLoading(false));
   }
-  
+
   function handleRefresh() {
     fetchAlumnos();
     fetchMesas()
@@ -65,13 +66,19 @@ const App = () => {
             path="/inscripcionFormulario"
             element={<InscripcionFormulario mesasDeExamenes={mesasDeExamenes} alumnosDisponibles={alumnos} />}
           />
-          
+
           <Route
             path="/gestionDeAlumnos"
             element={<AlumnoFormulario alumnosDisponibles={alumnos} />}
           />
+
+          <Route
+            path="/gestionDeMesas"
+            element={<GestionDeMesas mesasDeExamenes={mesasDeExamenes} />}
+            
+          />
         </Routes>
-        
+
       </Router>
       <Input type="submit" value="Refresh" onClick={handleRefresh} />
     </ChakraProvider>

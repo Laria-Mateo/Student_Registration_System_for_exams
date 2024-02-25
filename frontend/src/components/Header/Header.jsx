@@ -4,28 +4,31 @@ import utn from '/utn-nacional.jpg'
 import { Link } from 'react-router-dom';
 import { handleInscripcionExitosa } from '../../Refresh';
 
-
-
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedLink, setSelectedLink] = useState(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLinkClick = (link) => {
+    setSelectedLink(link);
+  };
+
   return (
-    <Box bg="blue.700" p={9} color="white">
+    <Box bg="blue.700" p={7} color="white">
       <Flex align="center" justifyContent={['center', 'flex-start']}>
 
-        <Flex align="center" mr={2}>
+        <Flex align="center" >
           <img src={utn} alt='' style={{ maxWidth: '120px' }} />
         </Flex>
 
-        <Spacer />
-        <Heading as="h1" size="sm" mx={{ base: 4, md: 140 }}>
-          Area de Gestion
-        </Heading>
-        <Spacer />
+        <Box>
+          <Heading as="h1" size="lg" mx={{ base: 4, md: 630 }}>
+            Area de Gestion
+          </Heading>
+        </Box>
 
         <Box display={{ base: 'block', md: 'none' }}>
           <Button onClick={toggleMenu}>Menú</Button>
@@ -35,18 +38,42 @@ function Header() {
 
       <Box display={{ base: 'none', md: 'block' }} >
         <Flex align="center" justifyContent="center" >
-          <Link to="/inscripcionFormulario" mr={4} >
-            Inscripcion a Mesas
-          </Link>
-          <Link to="/gestionDeAlumnos" mr={4} >
-            Gestion de Alumnos
-          </Link>
-          <Link href="#" mr={4} mb={{ base: 2, md: 0 }}>
-            Gestion de Mesas
-          </Link>
-          <Link href="#" mr={4} mb={{ base: 2, md: 0 }}>
-            Consultas
-          </Link>
+          <Box mr={3}>
+            <Link
+              to="/inscripcionFormulario"
+              onClick={() => handleLinkClick("/inscripcionFormulario")}
+              style={{ color: selectedLink === "/inscripcionFormulario" ? "black" : "white" }}
+            >
+              Inscripcion a Mesas
+            </Link>
+          </Box>
+          <Box mr={3}>
+            <Link
+              to="/gestionDeAlumnos"
+              onClick={() => handleLinkClick("/gestionDeAlumnos")}
+              style={{ color: selectedLink === "/gestionDeAlumnos" ? "black" : "white" }}
+            >
+              Gestion de Alumnos
+            </Link>
+          </Box>
+          <Box mr={3}>
+            <Link
+              to="/gestionDeMesas"
+              onClick={() => handleLinkClick("/gestionDeMesas")}
+              style={{ color: selectedLink === "/gestionDeMesas" ? "black" : "white" }}
+            >
+              Gestion de Mesas
+            </Link>
+          </Box>
+          <Box mr={3}>
+            <Link
+              to="#"
+              onClick={() => handleLinkClick("#")}
+              style={{ color: selectedLink === "#" ? "black" : "white" }}
+            >
+              Consultas
+            </Link>
+          </Box>
         </Flex>
       </Box>
 
@@ -56,12 +83,32 @@ function Header() {
           align={{ base: 'flex-start', md: 'center' }}
           mt={{ base: 4, md: 0 }}
         >
-         <Link to="/inscripcionFormulario">Inscripción a Mesas</Link>
-         <Link to="/gestionDeAlumnos" mr={4} >Gestion de Alumnos</Link>
-          <Link href="#" mr={4} mb={{ base: 2, md: 0 }}>
+          <Link
+            to="/inscripcionFormulario"
+            onClick={() => handleLinkClick("/inscripcionFormulario")}
+            style={{ color: selectedLink === "/inscripcionFormulario" ? "black" : "white" }}
+          >
+            Inscripcion a Mesas
+          </Link>
+          <Link
+            to="/gestionDeAlumnos"
+            onClick={() => handleLinkClick("/gestionDeAlumnos")}
+            style={{ color: selectedLink === "/gestionDeAlumnos" ? "black" : "white" }}
+          >
+            Gestion de Alumnos
+          </Link>
+          <Link
+            to="/gestionDeMesas"
+            onClick={() => handleLinkClick("/gestionDeMesas")}
+            style={{ color: selectedLink === "/gestionDeMesas" ? "black" : "white" }}
+          >
             Gestion de Mesas
           </Link>
-          <Link href="#" mr={4} mb={{ base: 2, md: 0 }}>
+          <Link
+            to="#"
+            onClick={() => handleLinkClick("#")}
+            style={{ color: selectedLink === "#" ? "black" : "white" }}
+          >
             Consultas
           </Link>
         </Flex>

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Date, ForeignKey, UniqueConstraint
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -7,7 +7,7 @@ class MesaExamen(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     nombreAsignatura = Column(String(30), index=True, unique=True)
-    fecha = Column(Date, index=True)
+    fecha = Column(DateTime, index=True)
     inscripciones = relationship("Inscripcion", back_populates="mesa_examen")
 
 

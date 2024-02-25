@@ -1,20 +1,13 @@
 import { useState } from 'react';
-import {
-    Box,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Select, // Import Select component
-    VStack,
-} from '@chakra-ui/react';
+import { Box,Button,FormControl,FormLabel,Input,Select,} from '@chakra-ui/react';
+
 import { handleInscripcionExitosa } from '../../Refresh';
 function GestionAlumnos({ alumnosDisponibles }) {
     const [accion, setAccion] = useState(null);
     const [alumno_dni, setDni] = useState('');
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
-    const [dniBuscar, setDniBuscar] = useState('');
+   // const [dniBuscar, setDniBuscar] = useState('');
     const [alumnoSeleccionado, setAlumnoSeleccionado] = useState('');
 
     const handleAlumnoChange = (event) => {
@@ -38,13 +31,13 @@ function GestionAlumnos({ alumnosDisponibles }) {
         setDni('');
     };
 
-    const handleBuscar = () => {
-        console.log("Buscar alumno con DNI:", dniBuscar);
-    };
+   // const handleBuscar = () => {
+    //    console.log("Buscar alumno con DNI:", dniBuscar);
+    //};
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aquí deberías implementar la lógica para dar de alta, baja o modificar el alumno según la acción seleccionada.
+       
         console.log("Datos a enviar:", alumno_dni, nombre, apellido);
     };
     function handleClickFormAlta(e) {
