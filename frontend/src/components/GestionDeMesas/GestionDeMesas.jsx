@@ -72,6 +72,26 @@ function GestionDeMesas({ mesasDeExamenes }) {
             });
     };
 
+    const handleClickFormModificacion = () => {
+        fetch(`http://localhost:8000/api/mesa_examen/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                nombreAsignatura: nombreMesa,
+                fecha: fecha
+            })
+
+        })
+            .then(() => {
+                setNombreMesa('');
+                setFecha('');
+                handleInscripcionExitosa()
+            })
+            .catch(error => console.error(error));
+    };
     return (
         <Box p={4}>
             <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
@@ -91,7 +111,7 @@ function GestionDeMesas({ mesasDeExamenes }) {
                 )}
                 {accion === 'baja' && (
                     <FormControl id="mesa">
-                        <FormLabel>Alumno</FormLabel>
+                        <FormLabel>Mesa</FormLabel>
                         <Select value={mesaSeleccionada} onChange={handleMesaChange}>
                             <option value="">Selecciona una Mesa...</option>
                             {mesasDeExamenes.map((mesa) => (
@@ -109,9 +129,26 @@ function GestionDeMesas({ mesasDeExamenes }) {
                     </FormControl>
                 )}
                 {accion === 'modificacion' && (
-                    <FormControl id="alumno">
-                        <FormLabel>Alumno</FormLabel>
+                    <FormControl id="mesa">
+                        <FormLabel>Mesa</FormLabel>
+                        <Select value={mesaSeleccionada} onChange={handleMesaChange}>
+                            <option value="">Selecciona una Mesa...</option>
+                            {mesasDeExamenes.map((mesa) => (
+                                <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} {mesa.fecha}</option>
+                            ))}
+                        </Select>
 
+                        <FormLabel>Nuevo Nombre</FormLabel>
+                        <Input type="text" value={nombreMesa} onChange={(e) => setNombreMesa(e.target.value)} />
+                        <FormLabel>Nueva Fecha y Hora</FormLabel>
+                        <Input type="datetime-local" value={fecha} onChange={(e) => setFecha(e.target.value)} />
+                        <Button
+                            type="submit"
+                            colorScheme="blue"
+                            onClick={() => handleClickFormModificacion(mesaSeleccionada)}
+                        >
+                            {accion === 'modificacion' ? 'Modificar' : ''}
+                        </Button>
                     </FormControl>
                 )}
             </VStack>
