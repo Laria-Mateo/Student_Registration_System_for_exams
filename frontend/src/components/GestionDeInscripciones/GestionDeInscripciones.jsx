@@ -12,7 +12,7 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
     const [mensaje, setMensaje] = useState('');
     const [inscripcion, setInscripcion] = useState(-1);
 
-    let inscripcionesPorMesa = []
+    
     const handleMesaChange = (event) => {
         const selectedMesa = event.target.value;
         console.log('Mesa seleccionada:', selectedMesa);
@@ -42,10 +42,6 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
 
     };
 
-    const handleModificacion = () => {
-        setAccion('modificacion');
-
-    };
     const handleBuscar = () => {
         setSubAccion('buscar')
 
@@ -95,32 +91,13 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
             });
     };
 
-    const handleClickFormModificacion = (event) => {
-        fetch(`http://localhost:8000/api/mesa_examen/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: id,
-                nombreAsignatura: nombreMesa,
-                fecha: fecha
-            })
 
-        })
-            .then(() => {
-                setNombreMesa('');
-                setFecha('');
-                handleInscripcionExitosa()
-            })
-            .catch(error => console.error(error));
-    };
 
     return (
         <Box p={10}>
             <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
             <Button colorScheme="blue" onClick={handleBaja}>Baja</Button>
-            <Button colorScheme="blue" onClick={handleModificacion}>Modificación</Button>
+            
 
             <VStack spacing={4}>
                 {accion === 'alta' && (
