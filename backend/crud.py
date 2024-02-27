@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+from sqlalchemy.exc import NoResultFound
 from models import MesaExamen,Alumno, Inscripcion
 from schemas import UserData, MesaExamenData
 
@@ -108,5 +108,22 @@ def eliminar_inscripcion(db: Session, alumno_dni: int, mesa_id: int):
         db.delete(inscripcion)
         db.commit()
         return inscripcion
+    else:
+        return None
+    
+
+def eliminar_inscripcion_dni(db: Session, alumno_dni: int):
+    try:
+        db_alumno = db.query(Alumno).filter_by(dni=alumno_dni).one()
+    except NoResultFound:
+        return None
+
+    inscripciones = db.query(Inscripcion).filter_by(id_alumno=db_alumno.dni)
+
+    if inscripciones.count():
+        for inscripcion in inscripciones:
+            db.delete(inscripcion)
+        db.commit()
+        return inscripciones
     else:
         return None

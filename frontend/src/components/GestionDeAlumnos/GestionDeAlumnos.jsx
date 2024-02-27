@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading, Flex,Container } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading, Flex, Container } from '@chakra-ui/react';
 
 import { handleInscripcionExitosa } from '../../Refresh';
 function GestionAlumnos({ alumnosDisponibles }) {
@@ -61,6 +61,24 @@ function GestionAlumnos({ alumnosDisponibles }) {
         })
     }
     const handleClickFormBaja = (alumno_dni) => {
+        fetch(`http://localhost:8000/api/eliminar_inscripcion/${alumno_dni}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al eliminar Inscripcion');
+                }
+                handleInscripcionExitosa();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+
         fetch(`http://localhost:8000/api/alumnos/${alumno_dni}`, {
             method: 'DELETE',
             headers: {
