@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Input, Select, VStack } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading, Flex, Container } from '@chakra-ui/react';
 import { handleInscripcionExitosa } from '../../Refresh';
 
 function GestionDeMesas({ mesasDeExamenes }) {
@@ -107,66 +107,79 @@ function GestionDeMesas({ mesasDeExamenes }) {
             .catch(error => console.error(error));
     };
     return (
-        <Box p={4}>
+        <Box p={10}>
+            <Flex justifyContent="center">
+                <Box>
+                    <Heading as="h1" size="lg" >
+                        Gestion de Mesas
+                    </Heading>
+                </Box>
+            </Flex>
             <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
-            <Button colorScheme="blue" onClick={handleBaja}>Baja</Button>
-            <Button colorScheme="blue" onClick={handleModificacion}>Modificación</Button>
+            <Button colorScheme="blue" onClick={handleBaja} ml={2}>Baja</Button>
+            <Button colorScheme="blue" onClick={handleModificacion} ml={2}>Modificación</Button>
             <VStack spacing={4} mt={4}>
-                {accion === 'alta' && (
-                    <FormControl>
-                        <FormLabel>Nombre Asignatura</FormLabel>
-                        <Input type="text" value={nombreMesa} onChange={(e) => setNombreMesa(e.target.value)} />
-                        <FormLabel>Fecha y Hora</FormLabel>
-                        <Input type="datetime-local" value={fecha} onChange={(e) => setFecha(e.target.value)} />
-                        <Button type="submit" colorScheme="blue" onClick={handleClickFormAlta}>
-                            Dar de alta
-                        </Button>
-                    </FormControl>
-                )}
-                {accion === 'baja' && (
-                    <FormControl id="mesa">
-                        <FormLabel>Mesa</FormLabel>
-                        <Select value={mesaSeleccionada} onChange={handleMesaChange}>
-                            <option value="">Selecciona una Mesa...</option>
+                <Container maxW="container.md" p={2}>
+                    {accion === 'alta' && (
+                        <Box >
+                            <FormControl>
+                                <FormLabel>Nombre Asignatura</FormLabel>
+                                <Input type="text" value={nombreMesa} onChange={(e) => setNombreMesa(e.target.value)} />
+                                <FormLabel>Fecha y Hora</FormLabel>
+                                <Input type="datetime-local" value={fecha} onChange={(e) => setFecha(e.target.value)} />
+                                <Button type="submit" colorScheme="blue" onClick={handleClickFormAlta} mt={3}>
+                                    Dar de alta
+                                </Button>
+                            </FormControl>
+                        </Box>
+                    )}
+                    {accion === 'baja' && (
+                        <Box >
 
-                            {mesasDeExamenes.map((mesa) => (
-                                <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} {mesa.fecha}</option>
+                            <FormControl id="mesa">
+                                <FormLabel>Mesa</FormLabel>
+                                <Select value={mesaSeleccionada} onChange={handleMesaChange}>
+                                    <option value="">Selecciona una Mesa...</option>
 
-                            ))}
-                        </Select>
+                                    {mesasDeExamenes.map((mesa) => (
+                                        <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} {mesa.fecha}</option>
 
-                        <Button
-                            type="submit"
-                            colorScheme="blue"
-                            onClick={() => handleClickFormBaja(mesaSeleccionada)}
-                        >
-                            {accion === 'baja' ? 'Dar de Baja' : ''}
-                        </Button>
-                    </FormControl>
-                )}
-                {accion === 'modificacion' && (
-                    <FormControl id="mesa">
-                        <FormLabel>Mesa</FormLabel>
-                        <Select value={mesaSeleccionada} onChange={handleMesaChange}>
-                            <option value="">Selecciona una Mesa...</option>
-                            {mesasDeExamenes.map((mesa) => (
-                                <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} {mesa.fecha}</option>
-                            ))}
-                        </Select>
+                                    ))}
+                                </Select>
 
-                        <FormLabel>Nuevo Nombre</FormLabel>
-                        <Input type="text" value={nombreMesa} onChange={(e) => setNombreMesa(e.target.value)} />
-                        <FormLabel>Nueva Fecha y Hora</FormLabel>
-                        <Input type="datetime-local" value={fecha} onChange={(e) => setFecha(e.target.value)} />
-                        <Button
-                            type="submit"
-                            colorScheme="blue"
-                            onClick={() => handleClickFormModificacion(mesaSeleccionada)}
-                        >
-                            {accion === 'modificacion' ? 'Modificar' : ''}
-                        </Button>
-                    </FormControl>
-                )}
+                                <Button type="submit" colorScheme="blue" onClick={() => handleClickFormBaja(mesaSeleccionada)} mt={3}>
+                                    {accion === 'baja' ? 'Dar de Baja' : ''}
+                                </Button>
+                            </FormControl>
+                        </Box>
+                    )}
+                    {accion === 'modificacion' && (
+                        <Box >
+                            <FormControl id="mesa">
+                                <FormLabel>Mesa</FormLabel>
+                                <Select value={mesaSeleccionada} onChange={handleMesaChange}>
+                                    <option value="">Selecciona una Mesa...</option>
+                                    {mesasDeExamenes.map((mesa) => (
+                                        <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} {mesa.fecha}</option>
+                                    ))}
+                                </Select>
+
+                                <FormLabel>Nuevo Nombre</FormLabel>
+                                <Input type="text" value={nombreMesa} onChange={(e) => setNombreMesa(e.target.value)} />
+                                <FormLabel>Nueva Fecha y Hora</FormLabel>
+                                <Input type="datetime-local" value={fecha} onChange={(e) => setFecha(e.target.value)} />
+                                <Button
+                                    type="submit"
+                                    colorScheme="blue"
+                                    onClick={() => handleClickFormModificacion(mesaSeleccionada)}
+                                    mt={3}
+                                >
+                                    {accion === 'modificacion' ? 'Modificar' : ''}
+                                </Button>
+                            </FormControl>
+                        </Box>
+                    )}
+                </Container>
             </VStack>
         </Box>
     );

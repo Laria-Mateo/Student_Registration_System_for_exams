@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormControl, FormLabel, Select, Button, VStack, Box } from '@chakra-ui/react';
+import { FormControl, FormLabel, Select, Button, VStack, Box, Heading, Flex, Container } from '@chakra-ui/react';
 import { handleInscripcionExitosa } from '../../Refresh';
 
 
@@ -12,7 +12,7 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
     const [mensaje, setMensaje] = useState('');
     const [inscripcion, setInscripcion] = useState(-1);
 
-    
+
     const handleMesaChange = (event) => {
         const selectedMesa = event.target.value;
         console.log('Mesa seleccionada:', selectedMesa);
@@ -95,9 +95,16 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
 
     return (
         <Box p={10}>
+            <Flex justifyContent="center">
+                <Box>
+                    <Heading as="h1" size="lg" >
+                        Gestion de Inscripciones
+                    </Heading>
+                </Box>
+            </Flex>
             <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
-            <Button colorScheme="blue" onClick={handleBaja}>Baja</Button>
-            
+            <Button colorScheme="blue" onClick={handleBaja} ml={2}>Baja</Button>
+
 
             <VStack spacing={4}>
                 {accion === 'alta' && (
@@ -122,7 +129,7 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
                             </Select>
                         </FormControl>
 
-                        <Button type="submit" colorScheme="blue" disabled={!mesaSeleccionada || !alumnoSeleccionado} onClick={handleSubmit}>
+                        <Button type="submit" colorScheme="blue" disabled={!mesaSeleccionada || !alumnoSeleccionado} onClick={handleSubmit} mt={3}>
                             Inscribir
                         </Button>
 
@@ -140,7 +147,7 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
                                 ))}
                             </Select>
                         </FormControl>
-                        <Button type="submit" colorScheme="blue" onClick={handleBuscar} >
+                        <Button type="submit" colorScheme="blue" onClick={handleBuscar} mt={3} mb={3} >
                             Buscar
                         </Button>
                         {subAccion === 'buscar' && (
@@ -160,13 +167,14 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
 
                                     })}
                                 </Select>
-                                <Button type="submit" colorScheme="blue" onClick={handleClickFormBaja}>
+                                <Button type="submit" colorScheme="blue" onClick={handleClickFormBaja} mt={3}>
                                     Dar de Baja
                                 </Button>
                             </FormControl>
                         )}
                     </Box>
                 )}
+                <Container maxW="container.md" p={2}> </Container>
             </VStack>
 
 

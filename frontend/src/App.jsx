@@ -105,7 +105,7 @@ const App = () => {
         </Routes>
 
       </Router>
-      <Input type="submit" value="Refresh" onClick={handleRefresh} />
+      {/*<Input type="submit" value="Refresh" onClick={handleRefresh} />*/}
     </ChakraProvider>
   );
 }

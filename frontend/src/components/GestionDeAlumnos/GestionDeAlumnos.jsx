@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box,Button,FormControl,FormLabel,Input,Select, VStack} from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading, Flex,Container } from '@chakra-ui/react';
 
 import { handleInscripcionExitosa } from '../../Refresh';
 function GestionAlumnos({ alumnosDisponibles }) {
@@ -7,7 +7,7 @@ function GestionAlumnos({ alumnosDisponibles }) {
     const [alumno_dni, setDni] = useState('');
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
-   // const [dniBuscar, setDniBuscar] = useState('');
+    // const [dniBuscar, setDniBuscar] = useState('');
     const [alumnoSeleccionado, setAlumnoSeleccionado] = useState('');
 
     const handleAlumnoChange = (event) => {
@@ -31,13 +31,13 @@ function GestionAlumnos({ alumnosDisponibles }) {
         setDni('');
     };
 
-   // const handleBuscar = () => {
+    // const handleBuscar = () => {
     //    console.log("Buscar alumno con DNI:", dniBuscar);
     //};
 
     const handleSubmit = (event) => {
         event.preventDefault();
-       
+
         console.log("Datos a enviar:", alumno_dni, nombre, apellido);
     };
     function handleClickFormAlta(e) {
@@ -94,86 +94,99 @@ function GestionAlumnos({ alumnosDisponibles }) {
                 nombre: nombre,
                 apellido: apellido
             })
-            
+
         })
-        .then(() => {
-            setDni('');
-            setNombre('');
-            setApellido('');
-            setAlumnoSeleccionado('');
-            handleInscripcionExitosa()
-        })
-        .catch(error => console.error(error));
+            .then(() => {
+                setDni('');
+                setNombre('');
+                setApellido('');
+                setAlumnoSeleccionado('');
+                handleInscripcionExitosa()
+            })
+            .catch(error => console.error(error));
     };
 
     return (
-        <Box p={4}>
+        <Box p={10} >
+            <Flex justifyContent="center">
+                <Box>
+                    <Heading as="h1" size="lg" >
+                        Gestion de Alumnos
+                    </Heading>
+                </Box>
+            </Flex>
             <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
-            <Button colorScheme="blue" onClick={handleBaja}>Baja</Button>
-            <Button colorScheme="blue" onClick={handleModificacion}>Modificación</Button>
+            <Button colorScheme="blue" onClick={handleBaja} ml={2}>Baja</Button>
+            <Button colorScheme="blue" onClick={handleModificacion} ml={2}>Modificación</Button>
 
             {accion && (
                 <form onSubmit={handleSubmit}>
                     <VStack spacing={4} mt={4}>
-                        {accion === 'alta' && (
-                            <FormControl>
-                                <FormLabel>Nombre</FormLabel>
-                                <Input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                        <Container maxW="container.md" p={2}>
+                            {accion === 'alta' && (
+                                <Box >
 
-                                <FormLabel>Apellido</FormLabel>
-                                <Input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+                                    <FormControl>
+                                        <FormLabel>Nombre</FormLabel>
+                                        <Input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
 
-                                <FormLabel>DNI</FormLabel>
-                                <Input type="text" value={alumno_dni} onChange={(e) => setDni(e.target.value)} />
+                                        <FormLabel>Apellido</FormLabel>
+                                        <Input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
 
-                                <Button type="submit" colorScheme="blue" onClick={handleClickFormAlta}>
-                                    {accion === 'alta' ? 'Dar de alta' : ''}
-                                </Button>
+                                        <FormLabel>DNI</FormLabel>
+                                        <Input type="text" value={alumno_dni} onChange={(e) => setDni(e.target.value)} />
 
-                            </FormControl>
-                        )}
-                        {accion === 'baja' && (
-                            <FormControl id="alumno">
-                                <FormLabel>Alumno</FormLabel>
-                                <Select value={alumnoSeleccionado} onChange={handleAlumnoChange}>
-                                    <option value="">Selecciona un alumno...</option>
-                                    {alumnosDisponibles.map((alumno) => (
-                                        <option key={alumno.dni} value={alumno.dni}>{alumno.nombre} {alumno.apellido}</option>
-                                    ))}
-                                </Select>
+                                        <Button type="submit" colorScheme="blue" onClick={handleClickFormAlta} mt={3}>
+                                            {accion === 'alta' ? 'Dar de alta' : ''}
+                                        </Button>
 
-                                <Button
-                                    type="submit"
-                                    colorScheme="blue"
-                                    onClick={() => handleClickFormBaja(alumnoSeleccionado)}
-                                >
-                                    {accion === 'baja' ? 'Dar de Baja' : ''}
-                                </Button>
-                            </FormControl>
-                        )}
-                        {accion === 'modificacion' && (
-                            <FormControl id="alumno">
-                                <FormLabel>Alumno</FormLabel>
-                                <Select value={alumnoSeleccionado} onChange={handleAlumnoChange}>
-                                    <option value="">Selecciona un alumno...</option>
-                                    {alumnosDisponibles.map((alumno) => (
-                                        <option key={alumno.dni} value={alumno.dni}>DNI: {alumno.dni} Nombre: {alumno.nombre} Apellido: {alumno.apellido} </option>
-                                    ))}
-                                </Select>
+                                    </FormControl>
+                                </Box>
+                            )}
+                            {accion === 'baja' && (
+                                <Box >
 
-                                <FormLabel>Nombre a modificar</FormLabel>
-                                <Input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                                    <FormControl id="alumno">
+                                        <FormLabel>Alumno</FormLabel>
+                                        <Select value={alumnoSeleccionado} onChange={handleAlumnoChange}>
+                                            <option value="">Selecciona un alumno...</option>
+                                            {alumnosDisponibles.map((alumno) => (
+                                                <option key={alumno.dni} value={alumno.dni}>{alumno.nombre} {alumno.apellido}</option>
+                                            ))}
+                                        </Select>
 
-                                <FormLabel>Apellido a modificar</FormLabel>
-                                <Input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+                                        <Button type="submit" colorScheme="blue" onClick={() => handleClickFormBaja(alumnoSeleccionado)} mt={3}>
+                                            {accion === 'baja' ? 'Dar de Baja' : ''}
+                                        </Button>
+                                    </FormControl>
+                                </Box>
+                            )}
+                            {accion === 'modificacion' && (
+                                <Box >
 
-                                <Button type="submit" colorScheme="blue" onClick={handleClickFormModificacion} >
-                                    {accion === 'modificacion' ? 'Modificar' : ''}
-                                    
-                                </Button>
-                            </FormControl>
-                        )}
+                                    <FormControl id="alumno">
+                                        <FormLabel>Alumno</FormLabel>
+                                        <Select value={alumnoSeleccionado} onChange={handleAlumnoChange}>
+                                            <option value="">Selecciona un alumno...</option>
+                                            {alumnosDisponibles.map((alumno) => (
+                                                <option key={alumno.dni} value={alumno.dni}>DNI: {alumno.dni} Nombre: {alumno.nombre} Apellido: {alumno.apellido} </option>
+                                            ))}
+                                        </Select>
 
+                                        <FormLabel>Nombre a modificar</FormLabel>
+                                        <Input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+
+                                        <FormLabel>Apellido a modificar</FormLabel>
+                                        <Input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+
+                                        <Button type="submit" colorScheme="blue" onClick={handleClickFormModificacion} mt={3} >
+                                            {accion === 'modificacion' ? 'Modificar' : ''}
+
+                                        </Button>
+                                    </FormControl>
+                                </Box>
+                            )}
+                        </Container>
                     </VStack>
                 </form>
             )}
