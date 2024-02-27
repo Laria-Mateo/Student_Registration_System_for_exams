@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Flex, Heading, Spacer, Collapse, Button } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spacer, Collapse, IconButton, chakra } from '@chakra-ui/react';
 import utn from '/utn-nacional.jpg'
 import { Link } from 'react-router-dom';
 import { handleInscripcionExitosa } from '../../Refresh';
@@ -31,7 +31,25 @@ function Header() {
         </Box>
 
         <Box display={{ base: 'block', md: 'none' }}>
-          <Button onClick={toggleMenu}>Menú</Button>
+          <IconButton
+            onClick={toggleMenu}
+            icon={
+              <chakra.svg
+                viewBox="0 0 24 24"
+                width="24px"
+                height="24px"
+                color="white"
+                transition="transform 0.3s"
+                transform={isOpen ? 'rotate(90deg)' : ''}
+              >
+                <path d="M2 6h20v2H2zm0 5h20v2H2zm0 5h20v2H2z" />
+              </chakra.svg>
+            }
+            aria-label="Menú"
+            variant="outline"
+            colorScheme="white"
+            size="lg"
+          />
         </Box>
 
       </Flex>
