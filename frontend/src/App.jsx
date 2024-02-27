@@ -6,6 +6,7 @@ import InscripcionFormulario from './components/GestionDeInscripciones/GestionDe
 import AlumnoFormulario from './components/GestionDeAlumnos/GestionDeAlumnos';
 import GestionDeMesas from './components/GestionDeMesas/GestionDeMesas';
 import Consultas from './components/Consultas/Consultas';
+import Footer from './components/Footer/Footer';
 
 
 const App = () => {
@@ -106,6 +107,7 @@ const App = () => {
 
       </Router>
       {/*<Input type="submit" value="Refresh" onClick={handleRefresh} />*/}
+      <Footer/>
     </ChakraProvider>
   );
 }
