@@ -44,7 +44,7 @@ function Header() {
               onClick={() => handleLinkClick("/inscripcionFormulario")}
               style={{ color: selectedLink === "/inscripcionFormulario" ? "black" : "white" }}
             >
-              Inscripcion a Mesas
+            Gestion de Inscripciones
             </Link>
           </Box>
           <Box mr={3}>
@@ -67,9 +67,9 @@ function Header() {
           </Box>
           <Box mr={3}>
             <Link
-              to="#"
-              onClick={() => handleLinkClick("#")}
-              style={{ color: selectedLink === "#" ? "black" : "white" }}
+              to="/consultas"
+              onClick={() => handleLinkClick("/consultas")}
+              style={{ color: selectedLink === "/consultas" ? "black" : "white" }}
             >
               Consultas
             </Link>
@@ -88,7 +88,7 @@ function Header() {
             onClick={() => handleLinkClick("/inscripcionFormulario")}
             style={{ color: selectedLink === "/inscripcionFormulario" ? "black" : "white" }}
           >
-            Inscripcion a Mesas
+            Gestion de Inscripciones
           </Link>
           <Link
             to="/gestionDeAlumnos"
@@ -105,9 +105,9 @@ function Header() {
             Gestion de Mesas
           </Link>
           <Link
-            to="#"
-            onClick={() => handleLinkClick("#")}
-            style={{ color: selectedLink === "#" ? "black" : "white" }}
+            to="/consultas"
+            onClick={() => handleLinkClick("/consultas")}
+            style={{ color: selectedLink === "/consultas" ? "black" : "white" }}
           >
             Consultas
           </Link>

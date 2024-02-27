@@ -6,16 +6,18 @@ function GestionDeMesas({ mesasDeExamenes }) {
     const [accion, setAccion] = useState(null);
     const [nombreMesa, setNombreMesa] = useState('');
     const [fecha, setFecha] = useState('');
-    const [id, setId] = useState('4')
+    const [id, setId] = useState('0')
     const [mesaSeleccionada, setMesaSeleccionada] = useState('')
 
     const handleMesaChange = (event) => {
         setMesaSeleccionada(event.target.value);
+
     };
     const handleAlta = () => {
         setAccion('alta');
         setNombreMesa('');
         setFecha('');
+
     };
 
     const handleBaja = () => {
@@ -28,12 +30,24 @@ function GestionDeMesas({ mesasDeExamenes }) {
         setNombreMesa('');
     };
 
+    function verificarId() {
+
+        let idAlto = -1;
+
+        mesasDeExamenes.map((mesa) => {
+
+            if (mesa.id > idAlto) {
+                idAlto = mesa.id;
+            }
+        })
+        setId(idAlto + 1);
+    }
     function handleClickFormAlta(e) {
         e.preventDefault();
 
         const formattedFecha = new Date(fecha).toISOString(); //cambio de formato la fecha
+        verificarId();
 
-        setId(id + 1);
         fetch('http://localhost:8000/api/mesa_examen', {
             method: 'POST',
             headers: {
@@ -114,8 +128,10 @@ function GestionDeMesas({ mesasDeExamenes }) {
                         <FormLabel>Mesa</FormLabel>
                         <Select value={mesaSeleccionada} onChange={handleMesaChange}>
                             <option value="">Selecciona una Mesa...</option>
+
                             {mesasDeExamenes.map((mesa) => (
                                 <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} {mesa.fecha}</option>
+
                             ))}
                         </Select>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box,Button,FormControl,FormLabel,Input,Select,} from '@chakra-ui/react';
+import { Box,Button,FormControl,FormLabel,Input,Select, VStack} from '@chakra-ui/react';
 
 import { handleInscripcionExitosa } from '../../Refresh';
 function GestionAlumnos({ alumnosDisponibles }) {
