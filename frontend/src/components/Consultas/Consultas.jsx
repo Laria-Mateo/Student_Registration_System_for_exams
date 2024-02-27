@@ -32,7 +32,7 @@ function Consultas({ mesasDeExamenes, inscripcionesRealizadas }) {
                                 ))}
                             </Select>
                         </FormControl>
-                        <Button type="submit" colorScheme="blue" onClick={handleBuscar} >
+                        <Button type="submit" colorScheme="blue" onClick={handleBuscar} m={2} >
                             Buscar
                         </Button>
                         {subAccion === 'accion' && (
