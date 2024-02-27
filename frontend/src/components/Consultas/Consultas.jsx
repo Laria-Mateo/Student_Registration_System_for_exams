@@ -2,50 +2,59 @@ import React, { useState } from 'react';
 import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading } from '@chakra-ui/react';
 import { handleInscripcionExitosa } from '../../Refresh';
 
-function Consultas({ mesasDeExamenes, alumnosDisponibles }) {
+function Consultas({ mesasDeExamenes, inscripcionesRealizadas }) {
     const [mesaSeleccionada, setMesaSeleccionada] = useState('')
-    const [alumnoSeleccionado, setAlumnoSeleccionado] = useState('');
+    const [subAccion, setSubAccion] = useState(null);
+
+    const [inscripcion, setInscripcion] = useState(-1);
     const handleMesaChange = (event) => {
         setMesaSeleccionada(event.target.value);
     }
-    const handleAlumnoChange = (event) => {
-        setAlumnoSeleccionado(event.target.value);
+
+    const handleInscripcionChange = (event) => {
+        const selectedInscripcion = event.target.value;
+       
+        setInscripcion(selectedInscripcion);
     };
+
+    const handleBuscar = () => {
+        setSubAccion('accion')
+
+    }
     return (
         <Box p={4}>
             <FormControl id="mesa">
-                <Heading as="h1" size="lg" >
-                    Mesas Registradas
-                </Heading>
-
-                <Select value={mesaSeleccionada} onChange={handleMesaChange}>
-                    <option value="">Selecciona una Mesa...</option>
-                    {mesasDeExamenes.map((mesa) => (
-                        <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} {mesa.fecha}</option>
-                    ))}
-                </Select>
-
-            </FormControl>
-
-            <Button colorScheme="blue" >Consultar Alumnos Registrados en Mesa</Button>
-
-
-            <FormControl id="alumno">
-                <Heading as="h1" size="lg" >
-                    Alumnos Registrados
-                </Heading>
-                <Select value={alumnoSeleccionado} onChange={handleAlumnoChange}>
-                    <option value="">Selecciona un alumno...</option>
-                    {alumnosDisponibles.map((alumno) => (
-                        <option key={alumno.dni} value={alumno.dni}>{alumno.nombre} {alumno.apellido}</option>
-                    ))}
-                </Select>
-
-               
-            </FormControl>
-            <Button colorScheme="blue" >Consultar Mesas en las que se inscribio el alumno</Button>
+                            <FormLabel>Seleccione Mesa de Exámenes</FormLabel>
+                            <Select value={mesaSeleccionada} onChange={handleMesaChange}>
+                                <option value="">Selecciona una mesa...</option>
+                                {mesasDeExamenes.map((mesa) => (
+                                    <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} - Fecha - {mesa.fecha}</option>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Button type="submit" colorScheme="blue" onClick={handleBuscar} >
+                            Buscar
+                        </Button>
+                        {subAccion === 'accion' && (
+                            <FormControl id="alumno">
+                                <FormLabel>Seleccione un Alumno</FormLabel>
+                                <Select value={inscripcion} onChange={handleInscripcionChange}>
+                                    <option value="">Selecciona un alumno...</option>
+                                    {inscripcionesRealizadas.map((alumno) => {
+                                        console.log('Alumno:', alumno);
 
 
+
+                                        return (alumno.id_mesa_examen == mesaSeleccionada) ? (
+                                            <option key={alumno.id_alumno} value={alumno.id_alumno}>DNI: {alumno.id_alumno}</option>
+                                        ) : null;
+
+
+                                    })}
+                                </Select>
+
+                            </FormControl>
+                        )}
         </Box>
     );
 }

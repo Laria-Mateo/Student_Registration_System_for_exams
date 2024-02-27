@@ -100,7 +100,7 @@ const App = () => {
 
           <Route
             path="/consultas"
-            element={<Consultas mesasDeExamenes={mesasDeExamenes} alumnosDisponibles={alumnos} />}
+            element={<Consultas mesasDeExamenes={mesasDeExamenes} inscripcionesRealizadas={inscripciones} />}
           />
         </Routes>
 

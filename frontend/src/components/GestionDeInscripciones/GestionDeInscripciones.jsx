@@ -95,6 +95,26 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
             });
     };
 
+    const handleClickFormModificacion = (event) => {
+        fetch(`http://localhost:8000/api/mesa_examen/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                nombreAsignatura: nombreMesa,
+                fecha: fecha
+            })
+
+        })
+            .then(() => {
+                setNombreMesa('');
+                setFecha('');
+                handleInscripcionExitosa()
+            })
+            .catch(error => console.error(error));
+    };
 
     return (
         <Box p={10}>

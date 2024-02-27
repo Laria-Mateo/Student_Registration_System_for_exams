@@ -105,6 +105,11 @@ def get_inscripciones(db: Session = Depends(get_db)):
     inscripciones = crud.get_inscripciones(db=db)
     return inscripciones
 
+#@app.put("/api/inscripciones/{alumno_dni}/{mesa_id}", response_model=InscripcionData)
+#def update_inscripciones(db: Session = Depends(get_db)):
+#    inscripciones = crud.get_inscripciones(db=db)
+#    return inscripciones
+
 @app.post("/api/inscribir/{alumno_dni}/{mesa_id}")
 def inscribir_alumno(alumno_dni: int, mesa_id: int, db: Session = Depends(get_db)):
     inscripcion = crud.inscribir_alumno_en_mesa(db=db, alumno_dni=alumno_dni, mesa_id=mesa_id)
