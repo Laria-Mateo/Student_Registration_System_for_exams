@@ -66,6 +66,25 @@ function GestionDeMesas({ mesasDeExamenes }) {
         });
     }
     const handleClickFormBaja = (id) => {
+
+        fetch(`http://localhost:8000/api/eliminar_inscripcion_mesa/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al eliminar Inscripcion');
+                }
+                handleInscripcionExitosa();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+
         fetch(`http://localhost:8000/api/mesa_examen/${id}`, {
             method: 'DELETE',
             headers: {

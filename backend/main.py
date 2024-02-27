@@ -105,10 +105,6 @@ def get_inscripciones(db: Session = Depends(get_db)):
     inscripciones = crud.get_inscripciones(db=db)
     return inscripciones
 
-#@app.put("/api/inscripciones/{alumno_dni}/{mesa_id}", response_model=InscripcionData)
-#def update_inscripciones(db: Session = Depends(get_db)):
-#    inscripciones = crud.get_inscripciones(db=db)
-#    return inscripciones
 
 @app.post("/api/inscribir/{alumno_dni}/{mesa_id}")
 def inscribir_alumno(alumno_dni: int, mesa_id: int, db: Session = Depends(get_db)):
@@ -127,6 +123,13 @@ def eliminar_inscripcion(alumno_dni: int, mesa_id: int, db: Session = Depends(ge
 @app.delete("/api/eliminar_inscripcion/{alumno_dni}")
 def eliminar_inscripcion_dni(alumno_dni: int, db: Session = Depends(get_db)):
     inscripcion_eliminada = crud.eliminar_inscripcion_dni(db=db, alumno_dni=alumno_dni)
+    if inscripcion_eliminada is None:
+        raise HTTPException(status_code=404, detail="La inscripción no existe")
+    return inscripcion_eliminada
+
+@app.delete("/api/eliminar_inscripcion_mesa/{mesa_id}")
+def eliminar_inscripcion_mesa(mesa_id: int, db: Session = Depends(get_db)):
+    inscripcion_eliminada = crud.eliminar_inscripcion_mesa(db=db, mesa_id=mesa_id)
     if inscripcion_eliminada is None:
         raise HTTPException(status_code=404, detail="La inscripción no existe")
     return inscripcion_eliminada

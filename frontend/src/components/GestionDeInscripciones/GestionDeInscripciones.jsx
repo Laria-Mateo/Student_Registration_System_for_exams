@@ -63,6 +63,7 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
                 setMensaje('¡Alumno inscrito exitosamente!');
                 setMesaSeleccionada('');
                 setAlumnoSeleccionado('');
+                handleInscripcionExitosa();
             })
             .catch(error => {
                 setMensaje('Error al inscribir al alumno');

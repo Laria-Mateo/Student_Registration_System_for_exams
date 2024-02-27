@@ -127,3 +127,19 @@ def eliminar_inscripcion_dni(db: Session, alumno_dni: int):
         return inscripciones
     else:
         return None
+    
+def eliminar_inscripcion_mesa(db: Session, mesa_id: int):
+    try:
+        db_mesa = db.query(MesaExamen).filter_by(id=mesa_id).one()
+    except NoResultFound:
+        return None
+
+    inscripciones = db.query(Inscripcion).filter_by(id_mesa_examen=db_mesa.id)
+
+    if inscripciones.count():
+        for inscripcion in inscripciones:
+            db.delete(inscripcion)
+        db.commit()
+        return inscripciones
+    else:
+        return None
