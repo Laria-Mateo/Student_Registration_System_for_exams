@@ -133,9 +133,12 @@ function GestionAlumnos({ alumnosDisponibles }) {
                     </Heading>
                 </Box>
             </Flex>
+            <Flex justifyContent="center">
+
             <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
             <Button colorScheme="blue" onClick={handleBaja} ml={2}>Baja</Button>
             <Button colorScheme="blue" onClick={handleModificacion} ml={2}>Modificación</Button>
+            </Flex>
 
             {accion && (
                 <form onSubmit={handleSubmit}>

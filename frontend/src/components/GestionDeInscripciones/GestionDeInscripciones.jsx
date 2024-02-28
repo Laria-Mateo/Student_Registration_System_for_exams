@@ -97,85 +97,89 @@ const InscripcionFormulario = ({ mesasDeExamenes, alumnosDisponibles, inscripcio
     return (
         <Box p={10}>
             <Flex justifyContent="center">
+
                 <Box>
                     <Heading as="h1" size="lg" >
                         Gestion de Inscripciones
                     </Heading>
                 </Box>
             </Flex>
-            <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
-            <Button colorScheme="blue" onClick={handleBaja} ml={2}>Baja</Button>
-
+            <Flex justifyContent="center">
+                <Button colorScheme="blue" onClick={handleAlta}>Alta</Button>
+                <Button colorScheme="blue" onClick={handleBaja} ml={2}>Baja</Button>
+            </Flex>
 
             <VStack spacing={4}>
-                {accion === 'alta' && (
-                    <Box>
-                        <FormControl id="mesa">
-                            <FormLabel>Mesa de Exámenes</FormLabel>
-                            <Select value={mesaSeleccionada} onChange={handleMesaChange}>
-                                <option value="">Selecciona una mesa...</option>
-                                {mesasDeExamenes.map((mesa) => (
-                                    <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} - Fecha - {mesa.fecha}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
-
-                        <FormControl id="alumno">
-                            <FormLabel>Alumno</FormLabel>
-                            <Select value={alumnoSeleccionado} onChange={handleAlumnoChange}>
-                                <option value="">Selecciona un alumno...</option>
-                                {alumnosDisponibles.map((alumno) => (
-                                    <option key={alumno.dni} value={alumno.dni}>{alumno.nombre} {alumno.apellido} </option>
-                                ))}
-                            </Select>
-                        </FormControl>
-
-                        <Button type="submit" colorScheme="blue" disabled={!mesaSeleccionada || !alumnoSeleccionado} onClick={handleSubmit} mt={3}>
-                            Inscribir
-                        </Button>
-
-                        {mensaje && <p>{mensaje}</p>}
-                    </Box>
-                )}
-                {accion === 'baja' && (
-                    <Box>
-                        <FormControl id="mesa">
-                            <FormLabel>Seleccione Mesa de Exámenes</FormLabel>
-                            <Select value={mesaSeleccionada} onChange={handleMesaChange}>
-                                <option value="">Selecciona una mesa...</option>
-                                {mesasDeExamenes.map((mesa) => (
-                                    <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} - Fecha - {mesa.fecha}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <Button type="submit" colorScheme="blue" onClick={handleBuscar} mt={3} mb={3} >
-                            Buscar
-                        </Button>
-                        {subAccion === 'buscar' && (
-                            <FormControl id="alumno">
-                                <FormLabel>Seleccione un Alumno</FormLabel>
-                                <Select value={inscripcion} onChange={handleInscripcionChange}>
-                                    <option value="">Selecciona un alumno...</option>
-                                    {inscripcionesRealizadas.map((alumno) => {
-                                        console.log('Alumno:', alumno);
-
-
-
-                                        return (alumno.id_mesa_examen == mesaSeleccionada) ? (
-                                            <option key={alumno.id_alumno} value={alumno.id_alumno}>DNI: {alumno.id_alumno}</option>
-                                        ) : null;
-
-
-                                    })}
+                <Container maxW="container.md" p={2}>
+                    {accion === 'alta' && (
+                        <Box>
+                            <FormControl id="mesa">
+                                <FormLabel>Mesa de Exámenes</FormLabel>
+                                <Select value={mesaSeleccionada} onChange={handleMesaChange}>
+                                    <option value="">Selecciona una mesa...</option>
+                                    {mesasDeExamenes.map((mesa) => (
+                                        <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} - Fecha - {mesa.fecha}</option>
+                                    ))}
                                 </Select>
-                                <Button type="submit" colorScheme="blue" onClick={handleClickFormBaja} mt={3}>
-                                    Dar de Baja
-                                </Button>
                             </FormControl>
-                        )}
-                    </Box>
-                )}
-                <Container maxW="container.md" p={2}> </Container>
+
+                            <FormControl id="alumno">
+                                <FormLabel>Alumno</FormLabel>
+                                <Select value={alumnoSeleccionado} onChange={handleAlumnoChange}>
+                                    <option value="">Selecciona un alumno...</option>
+                                    {alumnosDisponibles.map((alumno) => (
+                                        <option key={alumno.dni} value={alumno.dni}>{alumno.nombre} {alumno.apellido} </option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+
+                            <Button type="submit" colorScheme="blue" disabled={!mesaSeleccionada || !alumnoSeleccionado} onClick={handleSubmit} mt={3}>
+                                Inscribir
+                            </Button>
+
+                            {mensaje && <p>{mensaje}</p>}
+                        </Box>
+                    )}
+                    {accion === 'baja' && (
+                        <Box>
+                            <FormControl id="mesa">
+                                <FormLabel>Seleccione Mesa de Exámenes</FormLabel>
+                                <Select value={mesaSeleccionada} onChange={handleMesaChange}>
+                                    <option value="">Selecciona una mesa...</option>
+                                    {mesasDeExamenes.map((mesa) => (
+                                        <option key={mesa.id} value={mesa.id}>{mesa.nombreAsignatura} - Fecha - {mesa.fecha}</option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <Button type="submit" colorScheme="blue" onClick={handleBuscar} mt={3} mb={3} >
+                                Buscar
+                            </Button>
+                            {subAccion === 'buscar' && (
+                                <FormControl id="alumno">
+                                    <FormLabel>Seleccione un Alumno</FormLabel>
+                                    <Select value={inscripcion} onChange={handleInscripcionChange}>
+                                        <option value="">Selecciona un alumno...</option>
+                                        {inscripcionesRealizadas.map((alumno) => {
+                                            console.log('Alumno:', alumno);
+
+
+
+                                            return (alumno.id_mesa_examen == mesaSeleccionada) ? (
+                                                <option key={alumno.id_alumno} value={alumno.id_alumno}>DNI: {alumno.id_alumno}</option>
+                                            ) : null;
+
+
+                                        })}
+                                    </Select>
+                                    <Button type="submit" colorScheme="blue" onClick={handleClickFormBaja} mt={3}>
+                                        Dar de Baja
+                                    </Button>
+                                </FormControl>
+                            )}
+                        </Box>
+                    )}
+
+                </Container>
             </VStack>
 
 
