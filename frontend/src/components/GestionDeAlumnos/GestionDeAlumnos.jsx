@@ -71,13 +71,11 @@ function GestionAlumnos({ alumnosDisponibles }) {
                 if (!response.ok) {
                     throw new Error('Error al eliminar Inscripcion');
                 }
-                handleInscripcionExitosa();
+                
             })
             .catch(error => {
                 console.error(error);
             });
-
-
 
         fetch(`http://localhost:8000/api/alumnos/${alumno_dni}`, {
             method: 'DELETE',

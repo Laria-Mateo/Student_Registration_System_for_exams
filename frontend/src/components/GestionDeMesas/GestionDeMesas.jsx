@@ -77,7 +77,7 @@ function GestionDeMesas({ mesasDeExamenes }) {
                 if (!response.ok) {
                     throw new Error('Error al eliminar Inscripcion');
                 }
-                handleInscripcionExitosa();
+                
             })
             .catch(error => {
                 console.error(error);
@@ -105,7 +105,7 @@ function GestionDeMesas({ mesasDeExamenes }) {
             });
     };
 
-    const handleClickFormModificacion = () => {
+    const handleClickFormModificacion = (id) => {
         fetch(`http://localhost:8000/api/mesa_examen/${id}`, {
             method: 'PUT',
             headers: {
