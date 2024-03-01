@@ -21,8 +21,10 @@ const App = () => {
     fetchInscripciones();
   }, []);
 
+const url = 'http://localhost:8000/'
+
   function fetchAlumnos() {
-    fetch('http://localhost:8000/api/alumnos')
+    fetch(url+'api/alumnos')
       .then(res => {
         if (!res.ok) {
           throw new Error('Network response was not ok');
