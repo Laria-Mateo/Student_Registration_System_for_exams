@@ -1,2 +1,2 @@
 # Imagen del proyecto
-[Title](/proect.png)
+[![proect.jpg](https://i.postimg.cc/vZwN71Rp/proect.jpg)](https://postimg.cc/56pgb223)
